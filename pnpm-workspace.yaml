@@ -9,8 +9,8 @@ allowBuilds:
   esbuild: true
 minimumReleaseAge: 1440
 trustPolicy: no-downgrade
-# The lockfile held these versions before the policy could check them, and a
-# fresh resolution stops on each. Exempt by exact version, so nothing new gets in.
+# The lockfile already holds these versions, and the policy stops any install
+# that resolves them again. Exempt by exact version, so nothing new gets in.
 trustPolicyExclude:
   - chokidar@4.0.3
   - semver@6.3.1

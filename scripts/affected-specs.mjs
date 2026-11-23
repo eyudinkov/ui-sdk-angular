@@ -510,15 +510,13 @@ function commands({ touched, shared }) {
     [...touched.values(), ...shared.values()].flatMap((reach) => [...reach])
   )
   // A framework with no leaks fixture has no leak test, and an empty run fails.
-  const hasLeakFixture = (framework) =>
-    ["ts", "tsx"].some((extension) =>
-      existsSync(path.join(fixtureRoot, "leaks", `${framework}.${extension}`))
-    )
   const leaks = frameworks.filter(
     (framework) =>
       reached.has(framework) &&
       !whole.includes(framework) &&
-      hasLeakFixture(framework)
+      ["ts", "tsx"].some((extension) =>
+        existsSync(path.join(fixtureRoot, "leaks", `${framework}.${extension}`))
+      )
   )
   // Leak tests are named by component in words: "a scroll area" for scroll-area.
   const named = [...touched.keys()].map((component) =>
