@@ -8,14 +8,14 @@ One row per task in [TASKS.md](TASKS.md). The coordinator keeps it: a row change
 
 ## Phase 0: foundation
 
-| ID   | Task                                         | Branch                            | Specs                                | Review   | State    |
-| ---- | -------------------------------------------- | --------------------------------- | ------------------------------------ | -------- | -------- |
-| P0.1 | Fork and integration branch                  | `angular-p0.1-integration-branch` |                                      | None yet | Verified |
-| P0.2 | TypeScript 6 in the catalog                  | `angular-p0.2-typescript-6`       |                                      | None yet | Verified |
-| P0.3 | `packages/angular` skeleton and build script | `angular-p0.3-package-skeleton`   |                                      | None yet | Verified |
-| P0.4 | Angular in the playground                    | `angular-p0.4-playground`         | Tabs: 58 fail at `open()` until P1.4 | None yet | Verified |
-| P0.5 | Test wiring                                  | `angular-p0.5-test-wiring`        |                                      | None yet | Verified |
-| P0.6 | Agent setup                                  | `angular-p0.6-agent-setup`        |                                      | None yet | Verified |
+| ID   | Task                                         | Branch                            | Specs                                                                         | Review   | State    |
+| ---- | -------------------------------------------- | --------------------------------- | ----------------------------------------------------------------------------- | -------- | -------- |
+| P0.1 | Fork and integration branch                  | `angular-p0.1-integration-branch` |                                                                               | None yet | Verified |
+| P0.2 | TypeScript 6 in the catalog                  | `angular-p0.2-typescript-6`       |                                                                               | None yet | Verified |
+| P0.3 | `packages/angular` skeleton and build script | `angular-p0.3-package-skeleton`   |                                                                               | None yet | Verified |
+| P0.4 | Angular in the playground                    | `angular-p0.4-playground`         | Tabs, 5 files: 0 passed, 58 failed at `open()`, 0 skipped. `solid`: 58 passed | None yet | Verified |
+| P0.5 | Test wiring                                  | `angular-p0.5-test-wiring`        |                                                                               | None yet | Verified |
+| P0.6 | Agent setup                                  | `angular-p0.6-agent-setup`        |                                                                               | None yet | Verified |
 
 ## Phase 1: contract and first slice
 
