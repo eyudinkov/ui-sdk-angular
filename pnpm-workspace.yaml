@@ -12,6 +12,9 @@ trustPolicy: no-downgrade
 blockExoticSubdeps: true
 
 catalog:
+  "@angular/compiler": 22.3.0
+  "@angular/compiler-cli": 22.3.0
+  "@angular/core": 22.3.0
   "@playwright/test": ^1.63.0
   "@solidjs/vite-plugin": 3.0.1
   "@solidjs/web": 2.0.0
@@ -22,6 +25,7 @@ catalog:
   "@vitejs/plugin-vue": ^6.0.9
   react: 19.2.3
   react-dom: 19.2.3
+  rxjs: ^7.8.2
   solid-js: 2.0.0
   svelte: ^5.57.2
   svelte-check: ^4.7.6
