@@ -15,7 +15,7 @@ One row per task in [TASKS.md](TASKS.md). The coordinator keeps it: a row change
 | P0.3 | `packages/angular` skeleton and build script | `angular-p0.3-package-skeleton`   |       | None yet | Verified                                    |
 | P0.4 | Angular in the playground                    | `angular-p0.4-playground`         |       | None yet | Blocked: see [specs/p0.4.md](specs/p0.4.md) |
 | P0.5 | Test wiring                                  | `angular-p0.5-test-wiring`        |       | None yet | Verified, its proof half met until P0.4     |
-| P0.6 | Agent setup                                  | `angular-p0.6-agent-setup`        |       | None yet | P06_STATE                                   |
+| P0.6 | Agent setup                                  | `angular-p0.6-agent-setup`        |       | None yet | Verified                                    |
 
 ## Phase 1: contract and first slice
 

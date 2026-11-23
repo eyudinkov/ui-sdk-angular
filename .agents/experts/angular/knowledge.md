@@ -19,7 +19,7 @@ Every line was checked against the installed packages or by a run in this repo, 
 
 - **Partial mode keeps one file per source file.** `ngc` with `compilationMode: "partial"` emits a `.js` and a `.d.ts` for each. A directive's decorator becomes static `ɵɵngDeclareFactory` and `ɵɵngDeclareDirective` fields plus an `ɵɵngDeclareClassMetadata` call, and its declaration gets `ɵɵDirectiveDeclaration`.
 - **A directive is standalone unless it says otherwise.** The declaration of one with no `standalone` flag reads `isStandalone: true`.
-- **`experimentalDecorators` isn't needed.** `ngc` emits the same output with and without it, for a class decorator and for a legacy `@Input()`.
+- **`experimentalDecorators` isn't needed.** `ngc` emits the same output with and without it, for a class decorator and for a legacy `@Input()`. Astra found the same for `input()` and `model()` fields: identical files either way, with `openChange` emitted for the model.
 - **`strictTemplates` fails the build.** A template that reads a property its class doesn't have stops `ngc --noEmit` with TS2339.
 - **Flags and options.** `ngc` takes tsc's flags on the command line, but `angularCompilerOptions` only from a tsconfig. To emit under the base tsconfig it needs `--noEmit false` and `--allowImportingTsExtensions false`.
 
