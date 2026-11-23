@@ -40,11 +40,14 @@ Checked outside this repo before the work began, and not yet repeated here:
 
 ### The Analog plugin
 
-`@analogjs/vite-plugin-angular` 2.9.7, read from its source. `contributing/angular/specs/p0.4.md` has the rest.
+`@analogjs/vite-plugin-angular` 2.9.7, read from its source and then run in the playground. `contributing/angular/specs/p0.4.md` has the rest.
 
 - It calls `require("@angular/build/private")` as it loads, so `@angular/build` must be installed, whatever its `package.json` says.
 - Its `config` hook returns `oxc: config.oxc ?? false`. Unless the Vite config sets `oxc`, Vite stops transforming every other framework's TypeScript.
-- Its transform takes every `.ts` outside `node_modules`, and `transformFilter(code, id)` narrows that.
+- Its transform takes every `.ts` outside `node_modules`, and `transformFilter(code, id)` narrows that. It isn't an `enforce: "pre"` plugin, so Vite's own transform reaches a file first unless `oxc.exclude` names it.
+- It emits nothing under `noEmit: true`. With the base tsconfig's setting it serves an empty module and reports no error, so its tsconfig sets `noEmit: false`.
+- It compiles ahead of time by default: a served component holds `ɵɵdefineComponent`. A file it reaches through an import, like `packages/angular/src/primitive.ts`, is compiled from source the same way.
+- It adds `style` to `resolve.conditions`, its own step to dependency optimizing, and in a build a transform over every `.js`.
 
 ## 2. How `@ui-sdk/angular` is built
 
@@ -56,9 +59,10 @@ A skeleton so far. The contract arrives with P1.8 in `contributing/angular/CONTR
 - **Private.** The package is `"private": true` until Gate 3, so changesets and `check-packages.mjs` leave it out.
 - **No stability labels.** `check-code.mjs` flags `@stable` or `@experimental` on an export outside `documentedPackages`, which Angular joins in 3F.1. An export carries its JSDoc and no label until then.
 - **No unit tests yet.** `packages/angular/test/` and its vitest setup arrive with P1.1.
-- **One declaration of the compiler.** `@angular/compiler-cli` is a dependency of `packages/angular` only. A second declaration in another workspace makes pnpm resolve Babel 7's subtree again, and `trustPolicy: no-downgrade` refuses that.
+- **Angular's tooling under the trust policy.** `pnpm-workspace.yaml` exempts `semver@6.3.1` and `chokidar@4.0.3`, two versions upstream's lockfile already held, because `trustPolicy: no-downgrade` stops any install that resolves them again. Two `overrides` hold `@angular/build` to the repo's Vite and rolldown.
 - **Browser specs.** The `angular` project in `tests/playwright.config.ts` runs every spec whose fixture exists at `apps/playground/src/fixtures/<fixture>/angular.ts`. On its pages a spec fails when a console or uncaught error matches `/^ERROR\b|\bNG0\d+/` (`angularErrors` in `tests/fixtures.ts`).
-- **The playground doesn't compile Angular yet.** P0.4 is blocked, so no fixture exists.
+- **The playground.** `apps/playground/vite.config.ts` gives the Analog plugin `**/packages/angular/**` and `**/fixtures/*/angular*.ts`, and keeps Vite's own transform away from both. `tsconfig.angular.json` covers the fixtures, and the playground's `typecheck` ends with `ngc --noEmit -p tsconfig.angular.json`.
+- **A fixture mounts with `createApplication()` and `bootstrap(Fixture, root)`,** with no zone provider: `@angular/core` documents zoneless as the default from v21. `tabs/angular.ts` is an empty component until P1.4.
 
 ## 3. Review checklist
 

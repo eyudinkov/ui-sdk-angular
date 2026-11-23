@@ -14,7 +14,10 @@ D6 to D8 follow the plan's recommendation, and the owner confirms them when Phas
 - **Branches.** `angular` for integration and `angular-<id>-<slug>` per task. Git can't hold the plan's `angular/<id>-<slug>` beside `angular` (P0.1).
 - **Private until Gate 3.** Nothing goes to npm before it, and `check-packages.mjs` leaves a private package out (P0.3).
 - **No stability labels until 3F.1.** `check-code.mjs` rejects one on an export outside `documentedPackages`.
-- **`@angular/compiler-cli` is declared in `packages/angular` only.** A second declaration trips `trustPolicy: no-downgrade`.
+- **The trust policy exempts `semver@6.3.1` and `chokidar@4.0.3`,** on the owner's decision. Both were in upstream's lockfile already, and without the exemption no install that adds Angular's builder resolves (P0.4).
+- **The Analog plugin, scoped.** It takes `packages/angular` and `fixtures/*/angular*.ts` only, and `oxc` is set in the playground's config so Vite keeps transforming every other file (P0.4).
+- **`@angular/build` runs on the repo's Vite and rolldown,** through two `overrides`. Its own pins would put a second Vite under vitest and Nuxt (P0.4).
+- **No root Babel pin.** It would restore a few peer links and move Babel 7's own packages to newer patches for every existing tool (P0.4).
 - **The error capture matches Angular's own marks only,** `ERROR` from its handler and `NG0` codes. Other console errors on a page are the spec's business, as on every other framework (P0.5).
 
 ## Pending Gate 1
@@ -34,9 +37,9 @@ The plan's recommendations, built in Phase 1 and frozen in `CONTRACT.md` at Gate
 
 ## Known and open (don't report again, check whether fixed)
 
-- **P0.4 is blocked.** The Analog plugin needs `@angular/build`, and `trustPolicy: no-downgrade` refuses every install that adds it. The owner chooses among the options in `contributing/angular/specs/p0.4.md`. No Angular fixture exists until then.
-- **Babel 8 beside Babel 7.** Since P0.3, pnpm resolves the optional `@babel/core` peer of Next, Nuxt, `styled-jsx` and `@solidjs/vite-plugin` to 8.1.0, which `@angular/compiler-cli` brings. The root still holds 7.29.7, and nothing in the repo asks the Solid plugin for Babel.
-- **Four gates are red on Windows before any Angular work:** `pnpm lint` (`check-code.mjs`), `pnpm size`, a handful of unit tests in core, `@ui-sdk/web` and the docs app, and the examples build. `contributing/angular/specs/p0.1.md` has the baseline.
+- **The Tabs specs fail on `angular`.** The fixture is an empty component until P1.4, so each test stops at `open()`.
+- **Peer links that drifted.** pnpm resolves the optional `@babel/core` peer of Next, Nuxt, `styled-jsx` and `@solidjs/vite-plugin` to the 8.1.0 that Angular's compiler brings, and Vite's optional `sass` peers to the ones Angular's builder brings. The root still holds Babel 7.29.7, nothing in the repo asks the Solid plugin for Babel, and no existing tool runs a different version of anything.
+- **Red on Windows before any Angular work:** `pnpm lint` (`check-code.mjs`), `pnpm size`, the examples build, a handful of unit tests in core, `@ui-sdk/web` and the docs app, four `react` specs (two Drawer touch tests, two of Radio's tab stop tests), and the `/__ssr` route of a built playground. `contributing/angular/specs/p0.1.md` has the baseline.
 - **A base fixture reaches every framework in the planner.** `frameworksOf` in `scripts/affected-specs.mjs` maps only `<framework>-*` helper files to one framework, so `tabs/angular.ts` plans the Tabs specs everywhere, as `tabs/react.tsx` does.
 
 ## Revisit
