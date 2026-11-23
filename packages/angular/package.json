@@ -1,0 +1,64 @@
+{
+  "name": "@ui-sdk/angular",
+  "version": "0.1.0-beta.16",
+  "private": true,
+  "description": "UI SDK for Angular.",
+  "keywords": [
+    "angular",
+    "ui",
+    "ui-sdk",
+    "shadcn",
+    "behaviors",
+    "accessibility",
+    "a11y",
+    "aria",
+    "keyboard",
+    "focus",
+    "headless",
+    "unstyled",
+    "components",
+    "agents"
+  ],
+  "type": "module",
+  "license": "Apache-2.0",
+  "homepage": "https://ui-sdk.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vercel-labs/ui.git",
+    "directory": "packages/angular"
+  },
+  "bugs": "https://github.com/vercel-labs/ui/issues",
+  "exports": {
+    "./primitive": "./src/primitive.ts"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "docs"
+  ],
+  "publishConfig": {
+    "exports": {
+      "./primitive": {
+        "types": "./dist/primitive.d.ts",
+        "default": "./dist/primitive.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "node ../../scripts/build/build-angular-package.mjs",
+    "prepack": "cp ../../LICENSE LICENSE",
+    "typecheck": "ngc --noEmit"
+  },
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@ui-sdk/core": "workspace:^"
+  },
+  "devDependencies": {
+    "@angular/compiler": "catalog:",
+    "@angular/compiler-cli": "catalog:",
+    "@angular/core": "catalog:",
+    "@ui-sdk/core": "workspace:*",
+    "rxjs": "catalog:",
+    "typescript": "catalog:"
+  }
+}

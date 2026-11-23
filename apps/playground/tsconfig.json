@@ -3,6 +3,7 @@
   "include": ["src", "vite.config.ts"],
   "exclude": [
     "src/fixtures/*/solid*.tsx",
+    "src/fixtures/*/angular*.ts",
     "src/ssr/solid.ts",
     "src/ssr/hydrate.ts",
     "solid-ssr.ts"
