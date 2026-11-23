@@ -61,11 +61,15 @@ const engineWeight = 2
 const shardMinutes = 6
 const maxShards = 12
 
-const frameworks = ["react", "vue", "web", "solid", "svelte"]
+const frameworks = ["react", "vue", "web", "solid", "svelte", "angular"]
 const engineProjects = ["web-webkit", "web-firefox"]
 
 /** A framework's Chromium projects, as tests/playwright.config.ts names them. */
 function chromiumProjects(framework) {
+  // Angular has no data, sheet or SSR fixtures yet, so no projects for them.
+  if (framework === "angular") {
+    return [framework]
+  }
   const projects = [framework, `${framework}-data`, `${framework}-sheet`]
   if (framework !== "web") {
     projects.push(`${framework}-ssr`)
@@ -505,8 +509,16 @@ function commands({ touched, shared }) {
   const reached = new Set(
     [...touched.values(), ...shared.values()].flatMap((reach) => [...reach])
   )
+  // A framework with no leaks fixture has no leak test, and an empty run fails.
+  const hasLeakFixture = (framework) =>
+    ["ts", "tsx"].some((extension) =>
+      existsSync(path.join(fixtureRoot, "leaks", `${framework}.${extension}`))
+    )
   const leaks = frameworks.filter(
-    (framework) => reached.has(framework) && !whole.includes(framework)
+    (framework) =>
+      reached.has(framework) &&
+      !whole.includes(framework) &&
+      hasLeakFixture(framework)
   )
   // Leak tests are named by component in words: "a scroll area" for scroll-area.
   const named = [...touched.keys()].map((component) =>
