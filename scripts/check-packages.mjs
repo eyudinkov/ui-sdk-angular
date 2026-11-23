@@ -103,9 +103,13 @@ if (flags.build) {
   }
 }
 
-const names = readdirSync(path.join(root, "packages")).filter((name) =>
-  existsSync(path.join(root, "packages", name, "package.json"))
-)
+// A private package is never packed for npm, so it has nothing to check yet.
+const names = readdirSync(path.join(root, "packages")).filter((name) => {
+  const manifest = path.join(root, "packages", name, "package.json")
+  return (
+    existsSync(manifest) && !JSON.parse(readFileSync(manifest, "utf8")).private
+  )
+})
 const unbuilt = names.filter(
   (name) => !existsSync(path.join(root, "packages", name, "dist"))
 )
