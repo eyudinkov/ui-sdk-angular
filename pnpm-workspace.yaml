@@ -25,9 +25,9 @@ catalog:
   solid-js: 2.0.0
   svelte: ^5.57.2
   svelte-check: ^4.7.6
-  typescript: ~5.9.3
-  # The native compiler, for plain type checks. `typescript` stays 5.9 for
-  # tools that use its JavaScript API, like vue-tsc and svelte-check.
+  typescript: ~6.0.3
+  # The native compiler, for plain type checks. `typescript` stays 6.0 for
+  # tools that use its JavaScript API, like vue-tsc, svelte-check and ngc.
   typescript7: npm:typescript@7.0.2
   vite: ^8.3.3
   vue: ^3.5.43

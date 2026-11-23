@@ -15,7 +15,7 @@ Things that cost real debugging time. Read them before you write core or adapter
 - **Vue registers parts before inserting them,** so DOM order isn't known at registration. Sort at use time.
 - **Vue refs on components give instances,** so `slot()` unwraps `$el` through a cached wrapper. A new wrapper each render makes Vue detach and reattach the element.
 - **Vue mounts a moved part's new component before it unmounts the old one,** so each component gets its own ref for a part, and a `null` lets go only of the element that component handed over.
-- **TypeScript 7 breaks `vue-tsc`.** The catalog stays on TypeScript 5.9.
+- **TypeScript 7 breaks `vue-tsc`.** The catalog stays on TypeScript 6.0, the only line Angular's compiler accepts.
 - **Svelte runs `onclick` written in markup from its root listener,** after any listener on the element, so a handler on a `render` snippet's element runs after the built-in one and can't cancel it. Handlers go on the component, where they run first.
 - **Solid and Svelte can't read composed children before they render,** so a composed Select shows its value key in server HTML until mount.
 

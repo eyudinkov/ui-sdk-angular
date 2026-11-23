@@ -1,6 +1,6 @@
 // Runs TypeScript 7, the native compiler, with the given arguments, from any
 // package. Its binary is also `tsc`, so it lives in a package of its own,
-// where it can't replace TypeScript 5.9's, which vue-tsc and svelte-check use.
+// where it can't replace TypeScript 6.0's, which vue-tsc and svelte-check use.
 import { spawnSync } from "node:child_process"
 import { createRequire } from "node:module"
 import path from "node:path"
