@@ -14,6 +14,8 @@ const test = base.extend<{
   solidDiagnostics: void
   // Fails a Svelte spec when its page wrote state while options were handed over.
   svelteRelays: void
+  // Fails an Angular spec when Angular reported an error on its page.
+  angularErrors: void
 }>({
   framework: ["react", { option: true }],
   fixtureOptions: [{}, { option: true }],
@@ -83,6 +85,29 @@ const test = base.extend<{
         )
         .catch(() => [])
       expect(relays, "state written while options were handed over").toEqual([])
+    },
+    { auto: true },
+  ],
+  angularErrors: [
+    async ({ page, framework }, use) => {
+      const errors: string[] = []
+      if (framework.startsWith("angular")) {
+        // Angular's error handler logs "ERROR" with the error, and Angular's
+        // own errors carry an NG code.
+        const record = (text: string) => {
+          if (/^ERROR\b|\bNG0\d+/.test(text)) {
+            errors.push(text)
+          }
+        }
+        page.on("console", (message) => {
+          if (message.type() === "error") {
+            record(message.text())
+          }
+        })
+        page.on("pageerror", (error) => record(error.message))
+      }
+      await use()
+      expect(errors, "Angular's errors").toEqual([])
     },
     { auto: true },
   ],
